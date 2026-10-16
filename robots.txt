@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /tools/
+Sitemap: https://lapa290491-cell.github.io/baikal-kontur/sitemap.xml
