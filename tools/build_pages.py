@@ -13,7 +13,7 @@ PAGES=[]
 def page(route,title,body,hero=False,maps=False,charts=False,dash=False,desc=None):
     depth=len([x for x in route.split('/') if x]); root='../'*depth
     head=f'''<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{title} — {{P}}</title><meta name="description" content="{desc or title}"><meta property="og:type" content="website"><meta property="og:title" content="{title}"><meta property="og:description" content="{desc or title}"><meta property="og:image" content="{root}assets/img/hero.jpg"><meta property="og:locale" content="ru_RU">
+<title>{title} — Байкальский контур</title><meta name="description" content="{desc or title}"><meta property="og:type" content="website"><meta property="og:title" content="{title}"><meta property="og:description" content="{desc or title}"><meta property="og:image" content="{root}assets/img/hero.jpg"><meta property="og:locale" content="ru_RU">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 34'%3E%3Crect width='34' height='34' rx='9' fill='%23123246'/%3E%3Cpath d='M10 7c5 3 3 8 6 11s2 7-2 9' stroke='%2318A5A0' stroke-width='3' fill='none'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap&subset=cyrillic" rel="stylesheet">
 <link rel="stylesheet" href="{root}assets/css/style.css">{'<link rel="stylesheet" href="'+root+'assets/css/dashboard.css">' if dash else ''}
