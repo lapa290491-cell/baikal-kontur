@@ -1,0 +1,23 @@
+name: Apply update
+on:
+  push:
+    branches: [main]
+    paths: ['_bundle/**']
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: |
+          base64 -d _bundle/upd.b64 | tar xzf -
+          git rm -rq _bundle .github/workflows
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Fix blank sections on mobile: content visible by default, progressive scroll-reveal with fallback'
+          git push origin HEAD:main
+          git push origin HEAD:gh-pages
