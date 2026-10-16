@@ -24,6 +24,15 @@ const addF=()=>document.body.insertBefore(footer,document.querySelector("body>sc
 document.querySelectorAll("[data-cfg]").forEach(e=>e.textContent=C[e.dataset.cfg]);
 document.querySelectorAll("[data-href]").forEach(e=>e.setAttribute("href",u(e.dataset.href)));
 if(document.title.includes("{P}"))document.title=document.title.replace("{P}",C.projectName);
-const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}}),{threshold:.08});
-document.querySelectorAll(".reveal").forEach(e=>io.observe(e));
+/* Progressive reveal: content is visible by default; animation only when IO is available, motion allowed, and after DOM is parsed. */
+const initReveal=()=>{try{
+const els=[...document.querySelectorAll(".reveal")];if(!els.length)return;
+if(!("IntersectionObserver" in window)||(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches))return;
+const showAll=()=>els.forEach(e=>e.classList.add("in"));
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}}),{threshold:0,rootMargin:"0px 0px 10% 0px"});
+els.forEach(e=>{const r=e.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0)e.classList.add("in");else io.observe(e)});
+document.documentElement.classList.add("js-reveal");
+setTimeout(()=>{showAll();io.disconnect()},2500);
+}catch(err){document.documentElement.classList.remove("js-reveal")}};
+document.readyState==="loading"?document.addEventListener("DOMContentLoaded",initReveal):initReveal();
 })();
